@@ -8,7 +8,7 @@ namespace Tic_Tac_Toe
 {
     public partial class Form1 : Form
     {
-        private bool Turn = false; // false - X, true - O
+        private bool Turn = true; // false - X, true - O
         private int TurnCount = 0;
         private Button[] clickableButtons = new Button[9];
 
@@ -45,14 +45,7 @@ namespace Tic_Tac_Toe
             NewGame.Visible = true;
             NewGame.Enabled = true;
 
-            if (TurnCount % 2 != 0)
-            {
-                TurnInfo.Text = "O turn";
-            }
-            else
-            {
-                TurnInfo.Text = "X turn";
-            }
+            TurnInfo.Text = "O turn";
 
         }
 
@@ -63,15 +56,6 @@ namespace Tic_Tac_Toe
             if (!clickableButtons.Contains(button))
             {
                 return;
-            }
-
-            if (!Turn)
-            {
-                TurnInfo.Text = "O turn";
-            }
-            else
-            {
-                TurnInfo.Text = "X turn";
             }
 
             if (Turn == false)
@@ -91,8 +75,18 @@ namespace Tic_Tac_Toe
             }
 
             CheckWinner();
-            TurnCount++;
             Turn = !Turn;
+            TurnCount++;
+
+
+            if (Turn == true)
+            {
+                TurnInfo.Text = "O turn";
+            }
+            else if (Turn == false)
+            {
+                TurnInfo.Text = "X turn";
+            }
         }
 
         private void CheckWinner()
@@ -163,7 +157,7 @@ namespace Tic_Tac_Toe
 
         private void AutoNewGame()
         {
-            Turn = false;
+            Turn = true;
             TurnCount = 0;
 
             try
@@ -176,19 +170,12 @@ namespace Tic_Tac_Toe
             }
             catch { }
 
-            if (!Turn)
-            {
-                TurnInfo.Text = "O turn";
-            }
-            else
-            {
-                TurnInfo.Text = "X turn";
-            }
+            TurnInfo.Text = "O turn";
         }
 
         private void NewGame_Click(object sender, EventArgs e)
         {
-            Turn = false;
+            Turn = true;
             TurnCount = 0;
 
             try
@@ -200,6 +187,8 @@ namespace Tic_Tac_Toe
                 }
             }
             catch(Exception){ Console.WriteLine("WTF???"); }
+
+            TurnInfo.Text = "O turn";
         }
     }
 }
